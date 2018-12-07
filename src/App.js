@@ -1,40 +1,42 @@
 import React from "react"
-import { withFormik } from "formik"
+import { withFormik, Form, Field } from "formik"
 
-const App = ({ values, handleChange, handleSubmit }) => (
+const App = ({values}) => (
   <div >
-    <form onSubmit={handleSubmit}>
-
-    <input
+  {/* {console.log(values)} */}
+    <Form>
+    <Field
       type="email"
       name="email"
       placeholder="Email..."
-      value={values.email}
-      onChange={handleChange}
     />
     <br />
-    <input
+    <Field
       type="password"
       name="password"
       placeholder="Password..."
-      value={values.password}
-      onChange={handleChange}
+    />
+    <Field
+      type="checkbox"
+      name="newsletter"
+      checked={Boolean(values.newsletter)}
     />
     <br />
     <button type="submit">Submit</button>
-    </form>
+    </Form>  
   </div>
 )
 
 const FormikApp = withFormik({
-  mapPropsToValues({ email, password }) {
+  mapPropsToValues({ email, password, newsletter }) {
     return {
       email: email || "",
-      password: password || ""
+      password: password || "",
+      newsletter:  newsletter || true
     }
   },
   handleSubmit(values) {
-    console.log( values)
+    // console.log(values)
   }
 })(App)
 
